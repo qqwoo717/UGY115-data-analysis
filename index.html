@@ -1,302 +1,172 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>115學年度 UGY 職前訓練｜課後問卷分析</title>
+<title>UGY 職前訓練｜跨梯次問卷分析</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F6F2E6;
-    --paper-2:#EFE9D8;
-    --ink:#1E2B28;
-    --muted:#6B6456;
-    --teal-deep:#0E3B37;
-    --teal-mid:#1C6E5E;
-    --teal-soft:#DCE9E3;
-    --amber:#B5622E;
-    --amber-soft:#F1DFCB;
-    --coral:#A23A34;
-    --coral-soft:#F3DAD6;
-    --line:#DBD3BE;
-    --radius:14px;
+    --paper:#F6F2E6; --paper-2:#EFE9D8; --ink:#1E2B28; --muted:#6B6456;
+    --teal-deep:#0E3B37; --teal-mid:#1C6E5E; --teal-soft:#DCE9E3;
+    --amber:#B5622E; --amber-soft:#F1DFCB; --coral:#A23A34; --coral-soft:#F3DAD6;
+    --line:#DBD3BE; --radius:14px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
-  }
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:"Noto Sans TC", "PingFang TC", sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{
-    font-family:"Noto Serif TC", serif;
-    margin:0;
-    letter-spacing:0.01em;
-  }
-  .mono{font-family:"Roboto Mono", monospace;}
-  a{color:inherit;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC","PingFang TC",sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:"Noto Serif TC",serif;margin:0;letter-spacing:.01em;}
+  .mono{font-family:"Roboto Mono",monospace;}
 
-  /* ---------- NAV ---------- */
-  nav.topnav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(246,242,230,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    max-width:1080px; margin:0 auto;
-    display:flex; align-items:center; gap:6px;
-    padding:12px 24px;
-    overflow-x:auto;
-    scrollbar-width:none;
-  }
+  nav.topnav{position:sticky;top:0;z-index:60;background:rgba(246,242,230,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:12px 24px;overflow-x:auto;scrollbar-width:none;}
   .nav-inner::-webkit-scrollbar{display:none;}
-  .nav-brand{
-    font-family:"Noto Serif TC", serif;
-    font-weight:700; font-size:14px; color:var(--teal-deep);
-    white-space:nowrap; margin-right:18px;
-    display:flex; align-items:center; gap:8px;
-  }
+  .nav-brand{font-family:"Noto Serif TC",serif;font-weight:700;font-size:14px;color:var(--teal-deep);white-space:nowrap;margin-right:14px;display:flex;align-items:center;gap:8px;}
   .nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--teal-mid);flex:none;}
-  .nav-links{display:flex; gap:2px; white-space:nowrap;}
-  .nav-links a{
-    font-size:13px; padding:8px 12px; border-radius:20px;
-    color:var(--muted); text-decoration:none; transition:all .2s;
-    white-space:nowrap;
-  }
-  .nav-links a:hover{background:var(--teal-soft); color:var(--teal-deep);}
+  .nav-links{display:flex;gap:2px;white-space:nowrap;}
+  .nav-links a{font-size:13px;padding:8px 12px;border-radius:20px;color:var(--muted);text-decoration:none;transition:all .2s;white-space:nowrap;}
+  .nav-links a:hover{background:var(--teal-soft);color:var(--teal-deep);}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    max-width:1080px; margin:0 auto;
-    padding:64px 24px 40px;
-    position:relative;
+  /* period switcher */
+  .period-bar{position:sticky;top:47px;z-index:55;background:var(--teal-deep);}
+  .period-inner{max-width:1080px;margin:0 auto;display:flex;gap:8px;padding:10px 24px;overflow-x:auto;scrollbar-width:none;}
+  .period-inner::-webkit-scrollbar{display:none;}
+  .period-tab{
+    flex:none; font-family:"Roboto Mono",monospace; font-size:13px; font-weight:700;
+    color:#CFE3DC; background:transparent; border:1px solid rgba(255,255,255,.25);
+    padding:7px 16px; border-radius:20px; cursor:pointer; transition:all .2s; white-space:nowrap;
   }
-  .eyebrow{
-    font-size:12px; letter-spacing:0.18em; color:var(--teal-mid);
-    text-transform:uppercase; font-weight:700; margin-bottom:14px;
-  }
-  .hero h1{
-    font-size:clamp(30px,4.4vw,46px);
-    color:var(--teal-deep);
-    line-height:1.25;
-    font-weight:900;
-    max-width:720px;
-  }
-  .hero p.sub{
-    margin-top:16px; color:var(--muted); font-size:15px; line-height:1.9;
-    max-width:640px;
-  }
-  .ekg-wrap{
-    width:100%; height:70px; margin:28px 0 8px;
-    overflow:hidden;
-  }
-  .ekg-wrap svg{width:100%; height:100%; display:block;}
-  .ekg-path{
-    fill:none; stroke:var(--teal-mid); stroke-width:2.2;
-    stroke-linecap:round; stroke-linejoin:round;
-    stroke-dasharray:1400; stroke-dashoffset:1400;
-    animation:draw 2.6s ease-out forwards;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  .period-tab:hover{background:rgba(255,255,255,.1); color:#fff;}
+  .period-tab.active{background:#F6F2E6; color:var(--teal-deep); border-color:#F6F2E6;}
+  .period-tab.compare{border-style:dashed;}
 
-  .vitals{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
-    margin-top:8px;
-  }
-  .vital-card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:20px 18px;
-  }
-  .vital-card .num{
-    font-family:"Roboto Mono", monospace; font-weight:700;
-    font-size:clamp(26px,3.4vw,34px); color:var(--teal-deep); line-height:1;
-  }
-  .vital-card .num small{font-size:15px; font-weight:500; color:var(--muted);}
-  .vital-card .label{margin-top:8px; font-size:13px; color:var(--muted);}
+  .hero{max-width:1080px;margin:0 auto;padding:56px 24px 40px;position:relative;}
+  .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--teal-mid);text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .hero h1{font-size:clamp(28px,4.2vw,42px);color:var(--teal-deep);line-height:1.28;font-weight:900;max-width:720px;}
+  .hero p.sub{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.9;max-width:640px;}
+  .ekg-wrap{width:100%;height:64px;margin:26px 0 8px;overflow:hidden;}
+  .ekg-wrap svg{width:100%;height:100%;display:block;}
+  .ekg-path{fill:none;stroke:var(--teal-mid);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s ease-out forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
 
-  @media (max-width:680px){
-    .vitals{grid-template-columns:1fr;}
-  }
+  .vitals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+  .vital-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px;}
+  .vital-card .num{font-family:"Roboto Mono",monospace;font-weight:700;font-size:clamp(24px,3.2vw,32px);color:var(--teal-deep);line-height:1;}
+  .vital-card .num small{font-size:14px;font-weight:500;color:var(--muted);}
+  .vital-card .label{margin-top:8px;font-size:12.5px;color:var(--muted);}
+  @media (max-width:680px){.vitals{grid-template-columns:1fr;}}
 
-  /* ---------- SECTION ---------- */
-  section{
-    max-width:1080px; margin:0 auto;
-    padding:56px 24px;
-    border-top:1px solid var(--line);
-  }
-  .sec-head{
-    display:flex; align-items:baseline; gap:14px; margin-bottom:8px;
-    flex-wrap:wrap;
-  }
-  .sec-num{
-    font-family:"Roboto Mono", monospace; color:var(--teal-mid); font-size:13px; font-weight:700;
-  }
-  .sec-head h2{
-    font-size:clamp(22px,2.6vw,28px); color:var(--teal-deep); font-weight:700;
-  }
-  .sec-intro{color:var(--muted); font-size:14.5px; line-height:1.85; max-width:680px; margin:14px 0 32px;}
+  section{max-width:1080px;margin:0 auto;padding:50px 24px;border-top:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap;}
+  .sec-num{font-family:"Roboto Mono",monospace;color:var(--teal-mid);font-size:13px;font-weight:700;}
+  .sec-head h2{font-size:clamp(21px,2.4vw,26px);color:var(--teal-deep);font-weight:700;}
+  .sec-intro{color:var(--muted);font-size:14px;line-height:1.85;max-width:680px;margin:14px 0 30px;}
 
-  .reveal{
-    opacity:0; transform:translateY(16px);
-    transition:opacity .6s ease, transform .6s ease;
-  }
-  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
 
-  /* ---------- attendee table ---------- */
-  .table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:#fff;}
-  table{width:100%; border-collapse:collapse; font-size:14px;}
-  th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); white-space:nowrap;}
-  th{
-    background:var(--teal-deep); color:#F6F2E6; font-weight:500;
-    font-size:12.5px; letter-spacing:0.03em;
-  }
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  th{background:var(--teal-deep);color:#F6F2E6;font-weight:500;font-size:12px;letter-spacing:.03em;}
   tr:last-child td{border-bottom:none;}
   tbody tr:hover{background:var(--teal-soft);}
-  .badge{
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--teal-soft); color:var(--teal-deep);
-    font-family:"Roboto Mono",monospace; font-size:12.5px; font-weight:700;
-    padding:4px 10px; border-radius:20px;
-  }
+  .badge{display:inline-flex;align-items:center;gap:6px;background:var(--teal-soft);color:var(--teal-deep);
+    font-family:"Roboto Mono",monospace;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;}
+  .badge.warn{background:var(--amber-soft);color:var(--amber);}
 
-  /* ---------- knowledge grid ---------- */
-  .k-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
-  }
-  @media (max-width:760px){ .k-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:480px){ .k-grid{grid-template-columns:1fr;} }
-  .k-card{
-    background:#fff; border:1px solid var(--line); border-radius:12px;
-    padding:16px; position:relative; overflow:hidden;
-  }
-  .k-card .qnum{font-family:"Roboto Mono",monospace; font-size:11px; color:var(--teal-mid); font-weight:700;}
-  .k-card .qtitle{font-size:14px; font-weight:500; margin-top:4px; line-height:1.5;}
-  .k-card .qrate{
-    margin-top:12px; display:flex; align-items:center; justify-content:space-between;
-  }
-  .k-card .qrate .pct{font-family:"Roboto Mono",monospace; font-weight:700; color:var(--teal-deep);}
-  .k-card .bar-track{height:6px; background:var(--paper-2); border-radius:6px; margin-top:8px; overflow:hidden;}
-  .k-card .bar-fill{height:100%; background:var(--teal-mid); border-radius:6px; width:0%; transition:width 1s ease;}
+  .k-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media (max-width:760px){.k-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:480px){.k-grid{grid-template-columns:1fr;}}
+  .k-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px;}
+  .k-card .qnum{font-family:"Roboto Mono",monospace;font-size:11px;color:var(--teal-mid);font-weight:700;}
+  .k-card .qtitle{font-size:13.5px;font-weight:500;margin-top:4px;line-height:1.5;}
+  .k-card .qrate{margin-top:10px;display:flex;align-items:center;justify-content:space-between;}
+  .k-card .qrate .pct{font-family:"Roboto Mono",monospace;font-weight:700;color:var(--teal-deep);}
+  .k-card.flagged .qrate .pct{color:var(--amber);}
+  .k-card .bar-track{height:6px;background:var(--paper-2);border-radius:6px;margin-top:8px;overflow:hidden;}
+  .k-card .bar-fill{height:100%;background:var(--teal-mid);border-radius:6px;width:0%;transition:width 1s ease;}
+  .k-card.flagged .bar-fill{background:var(--amber);}
 
-  /* ---------- horizontal bar rows (confidence / overall) ---------- */
-  .barlist{display:flex; flex-direction:column; gap:16px;}
-  .barrow{display:grid; grid-template-columns:220px 1fr 56px; gap:14px; align-items:center;}
-  @media (max-width:640px){ .barrow{grid-template-columns:1fr; gap:6px;} .barrow .track{order:2;} .barrow .score{order:3; justify-self:start;} }
-  .barrow .rowlabel{font-size:13.5px; color:var(--ink); line-height:1.4;}
-  .barrow .track{
-    height:14px; background:var(--paper-2); border-radius:8px; overflow:hidden; position:relative;
-    border:1px solid var(--line);
-  }
-  .barrow .fill{
-    height:100%; border-radius:8px 0 0 8px; width:0%;
-    background:var(--teal-mid); transition:width 1.1s cubic-bezier(.2,.8,.2,1);
-  }
+  .barlist{display:flex;flex-direction:column;gap:15px;}
+  .barrow{display:grid;grid-template-columns:220px 1fr 54px;gap:14px;align-items:center;}
+  @media (max-width:640px){.barrow{grid-template-columns:1fr;gap:6px;}.barrow .track{order:2;}.barrow .score{order:3;justify-self:start;}}
+  .barrow .rowlabel{font-size:13px;color:var(--ink);line-height:1.4;}
+  .barrow .track{height:13px;background:var(--paper-2);border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .barrow .fill{height:100%;border-radius:8px 0 0 8px;width:0%;background:var(--teal-mid);transition:width 1s cubic-bezier(.2,.8,.2,1);}
   .barrow .fill.low{background:var(--amber);}
-  .barrow .score{font-family:"Roboto Mono",monospace; font-weight:700; font-size:13.5px; color:var(--teal-deep); text-align:right;}
-  .flag{
-    display:inline-block; margin-left:8px; font-size:11px; background:var(--amber-soft); color:var(--amber);
-    padding:2px 8px; border-radius:20px; font-weight:700; vertical-align:middle;
-  }
+  .barrow .score{font-family:"Roboto Mono",monospace;font-weight:700;font-size:13px;color:var(--teal-deep);text-align:right;}
+  .flag{display:inline-block;margin-left:8px;font-size:10.5px;background:var(--amber-soft);color:var(--amber);padding:2px 8px;border-radius:20px;font-weight:700;vertical-align:middle;}
 
-  /* ---------- course grouped bars ---------- */
-  .course-card{
-    background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:12px;
-  }
-  .course-card .top{display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;}
-  .course-card .cname{font-weight:700; font-size:15px;}
-  .course-card .cwho{font-size:12.5px; color:var(--muted); margin-top:2px;}
-  .dualbars{margin-top:14px; display:flex; flex-direction:column; gap:8px;}
-  .dualbar-row{display:grid; grid-template-columns:70px 1fr 40px; align-items:center; gap:10px;}
-  .dualbar-row .dlabel{font-size:11.5px; color:var(--muted);}
-  .dualbar-row .track{height:9px; background:var(--paper-2); border-radius:6px; overflow:hidden;}
-  .dualbar-row .fill{height:100%; border-radius:6px; width:0%; transition:width 1s ease;}
-  .fill.content{background:var(--teal-mid);}
-  .fill.instructor{background:#8FAF3F;}
-  .dualbar-row .dscore{font-family:"Roboto Mono",monospace; font-size:12px; text-align:right;}
-  .legend{display:flex; gap:16px; font-size:12px; color:var(--muted); margin-bottom:18px;}
-  .legend span{display:inline-flex; align-items:center; gap:6px;}
-  .legend i{width:10px;height:10px;border-radius:3px; display:inline-block;}
+  .course-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+  .course-card .cname{font-weight:700;font-size:14.5px;}
+  .course-card .cwho{font-size:12px;color:var(--muted);margin-top:2px;}
+  .dualbars{margin-top:13px;display:flex;flex-direction:column;gap:8px;}
+  .dualbar-row{display:grid;grid-template-columns:60px 1fr 40px;align-items:center;gap:10px;}
+  .dualbar-row .dlabel{font-size:11px;color:var(--muted);}
+  .dualbar-row .track{height:9px;background:var(--paper-2);border-radius:6px;overflow:hidden;}
+  .dualbar-row .fill{height:100%;border-radius:6px;width:0%;transition:width 1s ease;}
+  .fill.content{background:var(--teal-mid);} .fill.teach{background:#8FAF3F;}
+  .dualbar-row .dscore{font-family:"Roboto Mono",monospace;font-size:12px;text-align:right;}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-bottom:18px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
 
-  /* ---------- overall highlight ---------- */
-  .callout{
-    margin-top:22px; background:var(--coral-soft); border:1px solid #e3bcb7; border-radius:12px;
-    padding:18px 20px; display:flex; gap:14px; align-items:flex-start;
-  }
-  .callout .icon{
-    flex:none; width:34px; height:34px; border-radius:50%; background:var(--coral); color:#fff;
-    display:flex; align-items:center; justify-content:center; font-weight:700; font-family:"Roboto Mono",monospace;
-  }
-  .callout .txt{font-size:13.5px; line-height:1.85; color:#5a2c28;}
+  .callout{margin-top:20px;background:var(--coral-soft);border:1px solid #e3bcb7;border-radius:12px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;}
+  .callout .icon{flex:none;width:32px;height:32px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:"Roboto Mono",monospace;}
+  .callout .txt{font-size:13px;line-height:1.85;color:#5a2c28;}
   .callout .txt b{color:var(--coral);}
+  .callout.ok{background:var(--teal-soft);border-color:#bcd8ce;}
+  .callout.ok .icon{background:var(--teal-mid);}
+  .callout.ok .txt{color:var(--teal-deep);}
+  .callout.ok .txt b{color:var(--teal-deep);}
 
-  /* ---------- quotes ---------- */
-  .quote-grid{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
-  }
-  @media (max-width:720px){ .quote-grid{grid-template-columns:1fr;} }
-  .quote-card{
-    background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px;
-    position:relative;
-  }
-  .quote-card .mark{
-    position:absolute; top:10px; right:16px; font-family:"Noto Serif TC",serif; font-size:38px;
-    color:var(--teal-soft); font-weight:900; line-height:1; user-select:none;
-  }
-  .quote-card p{margin:0; font-size:14px; line-height:1.85; color:var(--ink);}
-  .quote-card .who{margin-top:12px; font-size:12px; color:var(--teal-mid); font-weight:700;}
+  .quote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;}
+  @media (max-width:720px){.quote-grid{grid-template-columns:1fr;}}
+  .quote-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px 18px;position:relative;}
+  .quote-card .mark{position:absolute;top:8px;right:14px;font-family:"Noto Serif TC",serif;font-size:34px;color:var(--teal-soft);font-weight:900;line-height:1;user-select:none;}
+  .quote-card p{margin:0;font-size:13.5px;line-height:1.85;color:var(--ink);}
+  .quote-card .who{margin-top:11px;font-size:11.5px;color:var(--teal-mid);font-weight:700;}
 
-  .suggest-list{display:flex; flex-direction:column; gap:10px; margin-top:26px;}
-  .suggest-item{
-    display:flex; gap:12px; align-items:flex-start;
-    background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px;
-    font-size:13.5px; line-height:1.8;
-  }
-  .suggest-item .tag{
-    flex:none; font-family:"Roboto Mono",monospace; font-size:11px; font-weight:700;
-    background:var(--amber-soft); color:var(--amber); padding:3px 8px; border-radius:6px; margin-top:2px;
-  }
+  .suggest-list{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+  .suggest-item{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;font-size:13px;line-height:1.8;}
+  .suggest-item .tag{flex:none;font-family:"Roboto Mono",monospace;font-size:10.5px;font-weight:700;background:var(--amber-soft);color:var(--amber);padding:3px 8px;border-radius:6px;margin-top:2px;}
 
-  /* ---------- action items ---------- */
-  .actions{display:flex; flex-direction:column; gap:12px;}
-  .action-card{
-    display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
-    background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 20px;
-  }
-  @media (max-width:600px){ .action-card{grid-template-columns:1fr; } .action-card .prio{justify-self:start;} }
-  .action-card .idx{
-    font-family:"Roboto Mono",monospace; font-weight:700; color:var(--teal-mid); font-size:13px;
-    background:var(--teal-soft); width:30px; height:30px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; flex:none;
-  }
-  .action-card .body b{font-size:14.5px;}
-  .action-card .body p{margin:4px 0 0; font-size:13px; color:var(--muted); line-height:1.7;}
-  .prio{
-    font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:20px; white-space:nowrap;
-  }
-  .prio.high{background:var(--coral-soft); color:var(--coral);}
-  .prio.mid{background:var(--amber-soft); color:var(--amber);}
+  .actions{display:flex;flex-direction:column;gap:12px;}
+  .action-card{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 18px;}
+  @media (max-width:600px){.action-card{grid-template-columns:1fr;}.action-card .prio{justify-self:start;}}
+  .action-card .idx{font-family:"Roboto Mono",monospace;font-weight:700;color:var(--teal-mid);font-size:12.5px;background:var(--teal-soft);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;}
+  .action-card .body b{font-size:14px;}
+  .action-card .body p{margin:4px 0 0;font-size:12.5px;color:var(--muted);line-height:1.7;}
+  .prio{font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;}
+  .prio.high{background:var(--coral-soft);color:var(--coral);}
+  .prio.mid{background:var(--amber-soft);color:var(--amber);}
 
-  footer{
-    max-width:1080px; margin:0 auto; padding:40px 24px 80px;
-    color:var(--muted); font-size:12.5px; line-height:2;
-    border-top:1px solid var(--line);
-  }
+  /* comparison view */
+  .cmp-block{margin-bottom:36px;}
+  .cmp-title{font-size:14px;font-weight:700;color:var(--teal-deep);margin-bottom:14px;}
+  .cmp-row{display:grid;grid-template-columns:110px 1fr 50px;gap:12px;align-items:center;margin-bottom:10px;}
+  .cmp-row .plabel{font-family:"Roboto Mono",monospace;font-size:12px;color:var(--muted);}
+  .cmp-row .track{height:16px;background:var(--paper-2);border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .cmp-row .fill{height:100%;border-radius:8px 0 0 8px;width:0%;transition:width 1s ease;background:var(--teal-mid);}
+  .cmp-row .val{font-family:"Roboto Mono",monospace;font-size:12.5px;font-weight:700;color:var(--teal-deep);text-align:right;}
+  .cmp-note{font-size:12.5px;color:var(--muted);margin-top:6px;}
+
+  footer{max-width:1080px;margin:0 auto;padding:36px 24px 80px;color:var(--muted);font-size:12.5px;line-height:2;border-top:1px solid var(--line);}
   footer b{color:var(--ink);}
+
+  #compare-view{display:none;}
 </style>
 </head>
 <body>
 
 <nav class="topnav">
   <div class="nav-inner">
-    <div class="nav-brand"><span class="dot"></span>115 UGY 職前訓練分析</div>
+    <div class="nav-brand"><span class="dot"></span>UGY 職前訓練｜跨梯次問卷分析</div>
     <div class="nav-links">
       <a href="#overview">總覽</a>
       <a href="#knowledge">知識測驗</a>
@@ -309,299 +179,384 @@
   </div>
 </nav>
 
-<div class="hero" id="overview">
-  <div class="eyebrow">奇美醫院 教學部 · 課後問卷分析</div>
-  <h1>115學年度 實習醫學生職前訓練<br>課後問卷分析與改善項目</h1>
-  <p class="sub">
-    訓練日期 115/07/06（一）・教學大樓 B1 教-2 會議室・登記參訓 14 人（中山後醫 6・陽明交大 4・高醫 4）。
-    以下依實際回收問卷（n = 7）整理知識測驗、信心自評、課程滿意度與開放意見，並歸納具體改善方向。
-  </p>
-
-  <div class="ekg-wrap">
-    <svg viewBox="0 0 1000 70" preserveAspectRatio="none">
-      <path class="ekg-path" d="M0,35 L120,35 L150,35 L165,10 L180,60 L195,35 L230,35 L260,35 L275,20 L290,50 L305,35 L340,35
-        L420,35 L450,35 L465,10 L480,60 L495,35 L530,35 L560,35 L575,20 L590,50 L605,35 L640,35
-        L720,35 L750,35 L765,10 L780,60 L795,35 L830,35 L860,35 L875,20 L890,50 L905,35 L1000,35" />
-    </svg>
-  </div>
-
-  <div class="vitals">
-    <div class="vital-card">
-      <div class="num">50<small>%</small></div>
-      <div class="label">問卷回收率（7／14 人）</div>
-    </div>
-    <div class="vital-card">
-      <div class="num">100<small>%</small></div>
-      <div class="label">知識測驗平均答對率（9/9 滿分）</div>
-    </div>
-    <div class="vital-card">
-      <div class="num">4.7<small>／5</small></div>
-      <div class="label">整體課程滿意度平均</div>
-    </div>
-  </div>
+<div class="period-bar">
+  <div class="period-inner" id="period-tabs"></div>
 </div>
 
-<!-- ============ 填答學員 ============ -->
-<section>
-  <div class="sec-head reveal">
-    <span class="sec-num">01</span>
-    <h2>填答學員名單</h2>
+<div id="period-view">
+  <div class="hero" id="overview">
+    <div class="eyebrow">奇美醫院 教學部 · 課後問卷分析</div>
+    <h1 id="hero-title">實習醫學生職前訓練<br>課後問卷分析與改善項目</h1>
+    <p class="sub" id="hero-sub"></p>
+    <div class="ekg-wrap">
+      <svg viewBox="0 0 1000 70" preserveAspectRatio="none">
+        <path class="ekg-path" d="M0,35 L120,35 L150,35 L165,10 L180,60 L195,35 L230,35 L260,35 L275,20 L290,50 L305,35 L340,35
+          L420,35 L450,35 L465,10 L480,60 L495,35 L530,35 L560,35 L575,20 L590,50 L605,35 L640,35
+          L720,35 L750,35 L765,10 L780,60 L795,35 L830,35 L860,35 L875,20 L890,50 L905,35 L1000,35" />
+      </svg>
+    </div>
+    <div class="vitals" id="vitals"></div>
   </div>
-  <p class="sec-intro reveal">7 位受訪學員來自 3 所學校，知識測驗全數滿分。以下為個別成績總覽。</p>
-  <div class="table-wrap reveal">
-    <table>
-      <thead><tr><th>姓名</th><th>就讀學校／年級</th><th>知識測驗</th></tr></thead>
-      <tbody id="attendee-body"></tbody>
-    </table>
-  </div>
-</section>
 
-<!-- ============ 知識測驗 ============ -->
-<section id="knowledge">
-  <div class="sec-head reveal">
-    <span class="sec-num">02</span>
-    <h2>知識測驗結果</h2>
-  </div>
-  <p class="sec-intro reveal">共 9 題單選題，涵蓋病歷寫作、生活型態醫學、針扎處置與預防、病人安全、品質與安全、公平照護、資訊系統／AI。全體 7 位學員 9 題全數答對，達成率 100%，無系統性知識落差。</p>
-  <div class="k-grid reveal" id="k-grid"></div>
-</section>
+  <section>
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>填答學員名單</h2></div>
+    <p class="sec-intro reveal" id="attendee-intro"></p>
+    <div class="table-wrap reveal"><table><thead><tr><th>姓名</th><th>就讀學校／年級</th><th>知識測驗</th></tr></thead><tbody id="attendee-body"></tbody></table></div>
+  </section>
 
-<!-- ============ 信心自評 ============ -->
-<section id="confidence">
-  <div class="sec-head reveal">
-    <span class="sec-num">03</span>
-    <h2>信心自評結果</h2>
-  </div>
-  <p class="sec-intro reveal">學員依 1（非常沒信心）～5（非常有信心）自評下列 7 項能力／準備度。整體信心程度良好，但「針扎處置與通報流程」相對偏低，值得留意。</p>
-  <div class="barlist reveal" id="confidence-list"></div>
-</section>
+  <section id="knowledge">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2>知識測驗結果</h2></div>
+    <p class="sec-intro reveal">共 9 題單選題，涵蓋病歷寫作、生活型態醫學、針扎處置與預防、病人安全、品質與安全、公平照護、資訊系統／AI。</p>
+    <div class="k-grid reveal" id="k-grid"></div>
+  </section>
 
-<!-- ============ 課程滿意度 ============ -->
-<section id="courses">
-  <div class="sec-head reveal">
-    <span class="sec-num">04</span>
-    <h2>課程滿意度</h2>
-  </div>
-  <p class="sec-intro reveal">學員就 8 堂課程分別評分「內容實用性」與「講師授課與表達」，1～5 分。多數課程皆獲極高評價。</p>
-  <div class="legend reveal">
-    <span><i style="background:var(--teal-mid)"></i>內容實用性</span>
-    <span><i style="background:#8FAF3F"></i>講師表達</span>
-  </div>
-  <div id="course-list" class="reveal"></div>
-</section>
+  <section id="confidence">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>信心自評結果</h2></div>
+    <p class="sec-intro reveal">學員依 1（非常沒信心）～5（非常有信心）自評下列 7 項能力／準備度。</p>
+    <div class="barlist reveal" id="confidence-list"></div>
+  </section>
 
-<!-- ============ 整體評價 ============ -->
-<section id="overall">
-  <div class="sec-head reveal">
-    <span class="sec-num">05</span>
-    <h2>整體評價</h2>
-  </div>
-  <p class="sec-intro reveal">5 項整體評價中，除「場地與設備」外皆達 4.86 高分。</p>
-  <div class="barlist reveal" id="overall-list"></div>
-  <div class="callout reveal">
-    <div class="icon">!</div>
-    <div class="txt">
-      <b>場地與設備</b>為本次調查中平均分最低的項目（4.29，其中 2 位學員僅給 3 分），
-      對照開放意見「設備有時候會出問題，建議定期更新」之回饋，是本次訓練中最明確、可執行的改善方向。
+  <section id="courses">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2>課程滿意度</h2></div>
+    <p class="sec-intro reveal">學員就各堂課程分別評分「內容實用性」與「講師授課與表達」，1～5 分。</p>
+    <div class="legend reveal"><span><i style="background:var(--teal-mid)"></i>內容實用性</span><span><i style="background:#8FAF3F"></i>講師表達</span></div>
+    <div id="course-list" class="reveal"></div>
+  </section>
+
+  <section id="overall">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2>整體評價</h2></div>
+    <p class="sec-intro reveal" id="overall-intro"></p>
+    <div class="barlist reveal" id="overall-list"></div>
+    <div id="overall-callout"></div>
+  </section>
+
+  <section id="voices">
+    <div class="sec-head reveal"><span class="sec-num">06</span><h2>學員開放意見</h2></div>
+    <p class="sec-intro reveal">「今天最有幫助的課程是哪一堂？原因為何？」</p>
+    <div class="quote-grid reveal" id="quote-grid"></div>
+    <p class="sec-intro reveal" style="margin-top:34px;">「建議增加調整內容」與「其他建議」</p>
+    <div class="suggest-list reveal" id="suggest-list"></div>
+  </section>
+
+  <section id="actions">
+    <div class="sec-head reveal"><span class="sec-num">07</span><h2>改善項目建議</h2></div>
+    <p class="sec-intro reveal">綜合本梯次分析，歸納以下改善行動，依優先順序排列。</p>
+    <div class="actions reveal" id="action-list"></div>
+  </section>
+</div>
+
+<div id="compare-view">
+  <div class="hero">
+    <div class="eyebrow">奇美醫院 教學部 · 跨梯次趨勢</div>
+    <h1>各梯次訓練成效比較</h1>
+    <p class="sub">彙整目前已收錄的所有梯次，比較各梯次的知識測驗成績、信心程度與課程滿意度變化趨勢。</p>
+    <div class="ekg-wrap">
+      <svg viewBox="0 0 1000 70" preserveAspectRatio="none">
+        <path class="ekg-path" d="M0,35 L120,35 L150,35 L165,10 L180,60 L195,35 L230,35 L260,35 L275,20 L290,50 L305,35 L340,35
+          L420,35 L450,35 L465,10 L480,60 L495,35 L530,35 L560,35 L575,20 L590,50 L605,35 L640,35
+          L720,35 L750,35 L765,10 L780,60 L795,35 L830,35 L860,35 L875,20 L890,50 L905,35 L1000,35" />
+      </svg>
     </div>
   </div>
-</section>
-
-<!-- ============ 開放意見 ============ -->
-<section id="voices">
-  <div class="sec-head reveal">
-    <span class="sec-num">06</span>
-    <h2>學員開放意見</h2>
-  </div>
-  <p class="sec-intro reveal">「今天最有幫助的課程是哪一堂？原因為何？」— 學員回饋分散於多堂課程，顯示各堂課皆具獨特價值。</p>
-  <div class="quote-grid reveal" id="quote-grid"></div>
-
-  <p class="sec-intro reveal" style="margin-top:36px;">「建議增加調整內容」與「其他建議」— 最主要反映的議題是全日課程節奏過於緊湊。</p>
-  <div class="suggest-list reveal" id="suggest-list"></div>
-</section>
-
-<!-- ============ 改善建議 ============ -->
-<section id="actions">
-  <div class="sec-head reveal">
-    <span class="sec-num">07</span>
-    <h2>改善項目建議</h2>
-  </div>
-  <p class="sec-intro reveal">綜合以上分析，歸納出以下 5 項具體改善行動，依優先順序排列。</p>
-  <div class="actions reveal" id="action-list"></div>
-</section>
+  <section style="border-top:none;">
+    <div class="cmp-block">
+      <div class="cmp-title">回覆人數</div>
+      <div id="cmp-n"></div>
+    </div>
+    <div class="cmp-block">
+      <div class="cmp-title">知識測驗平均得分（滿分 9）</div>
+      <div id="cmp-knowledge"></div>
+    </div>
+    <div class="cmp-block">
+      <div class="cmp-title">信心自評平均分（滿分 5）</div>
+      <div id="cmp-confidence"></div>
+    </div>
+    <div class="cmp-block">
+      <div class="cmp-title">課程滿意度平均分（滿分 5）</div>
+      <div id="cmp-course"></div>
+    </div>
+    <div class="cmp-block">
+      <div class="cmp-title">整體評價平均分（滿分 5）</div>
+      <div id="cmp-overall"></div>
+    </div>
+  </section>
+</div>
 
 <footer>
-  <div><b>資料來源：</b>「115職前訓練 UGY 課後滿意度表」線上問卷回收結果（有效樣本 n = 7 ／登記 14 人）。</div>
-  <div><b>備註：</b>樣本數較小，各項平均分與百分比僅供本梯次訓練參考，未來累積更多梯次資料後建議進行跨梯次趨勢比較。</div>
+  <div><b>資料來源：</b>「UGY職前訓練問卷回覆」Google 試算表，各梯次獨立分頁。</div>
+  <div><b>備註：</b>各梯次樣本數較小，平均分與百分比僅供該梯次訓練參考。之後每新增一個梯次，即會更新本頁面的梯次選單與跨梯次比較。</div>
   <div style="margin-top:10px;">奇美醫院 教學部</div>
 </footer>
 
+<script type="application/json" id="period-data">
+{"115-07": {"label": "115年7月6日", "location": "教學大樓 B1 教-2 會議室", "records": [{"school": "高雄醫學大學", "grade": "醫學系 六年級", "name": "楊文海", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 4}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 4, "teach": 4}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "針紮課程，因為臨床上很有可能遇到", "open2": "一整天的課程實在太累，建議可以用線上課程讓學員到院前就可以觀看", "open3": "設備有時候會出問題，建議定期更新", "submitted": "2026-07-08"}, {"school": "陽明交通大學", "grade": "醫學系 六年級", "name": "蘇定緯", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 4}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 4}, "open1": "生活型態醫學 能讓自己對於病人以及自身生活型態作評估 並調整更加良好的生活型態", "open2": "無 都超棒！", "open3": "一整天的課程可能會稍微有些累 或許可以分兩天進行", "submitted": "2026-07-08"}, {"school": "中山大學", "grade": "學士後醫學系 四年級", "name": "林於憫", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "A+系統介紹教學", "open2": "無特別建議", "open3": "無", "submitted": "2026-07-08"}, {"school": "陽明交通大學", "grade": "醫學系 六年級", "name": "黃敬原", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 4, "teach": 4}, "環境介紹/手機配發": {"content": 5, "teach": 4}, "病歷寫作": {"content": 5, "teach": 4}, "生活型態醫學": {"content": 4, "teach": 4}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 4, "行政服務與聯繫": 4, "對開始實習更有準備": 3}, "open1": "黃琪雅醫師的課 了解到AI整合資訊與幫助我們學習的潛力，感覺很實用", "open2": "無", "open3": "無", "submitted": "2026-07-08"}, {"school": "高雄醫學大學", "grade": "醫學系 六年級", "name": "林芝璇", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 4, "teach": 4}, "環境介紹/手機配發": {"content": 5, "teach": 4}, "病歷寫作": {"content": 5, "teach": 4}, "生活型態醫學": {"content": 4, "teach": 5}, "資訊系統介紹": {"content": 4, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 4, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 4, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "資訊系統介紹 對實際進入臨床環境基礎操作更熟悉", "open2": "無", "open3": "無", "submitted": "2026-07-08"}, {"school": "中山大學", "grade": "學士後醫學系 四年級", "name": "楊聖永", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 4, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 3}, "open1": "杜漢祥部長的交班練習。因為實際演練過一遍比較知道如何快速掌握一個病人的狀況，也比較清楚臨床上的工作溝通方式。", "open2": "無。", "open3": "無。", "submitted": "2026-07-08"}, {"school": "中山大學", "grade": "學士後醫學系 四年級", "name": "林瑞慈", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "成為讓人安心的醫師：從臨床第一天開始的品質、安全與公平照護 老師的提問讓學生可以思考，以及實際的體驗未來遇到的問題時如何應對。", "open2": "無，非常滿意", "open3": "無", "submitted": "2026-07-08"}]}, "115-08": {"label": "115年8月17日", "location": "教學大樓 B1 教-2 會議室", "records": [{"school": "國防", "grade": "醫學系 六年級", "name": "張鈞翔", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "病歷寫作。在未來職涯中會持續用到。", "open2": "無", "open3": "無", "submitted": "2026-08-20"}, {"school": "中山後醫", "grade": "學士後醫學系 三年級", "name": "林宏哲", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 2, "教育輔導組協助管道": 4, "整體已準備好開始實習": 2}, "courses": {"行政報到流程": {"content": 4, "teach": 4}, "環境介紹/手機配發": {"content": 5, "teach": 4}, "病歷寫作": {"content": 4, "teach": 4}, "生活型態醫學": {"content": 4, "teach": 4}, "資訊系統介紹": {"content": 4, "teach": 4}, "教育輔導組簡介": {"content": 4, "teach": 4}, "針扎預防": {"content": 3, "teach": 4}, "品質安全與公平照護": {"content": 3, "teach": 4}}, "overall": {"整體課程內容與安排": 4, "課程時間長度與節奏安排": 3, "場地與設備": 3, "行政服務與聯繫": 4, "對開始實習更有準備": 3}, "open1": "環境介紹 手機配發 熟悉環境", "open2": "系統跟一些該申請的東西可以再詳細點", "open3": "地下室網路很爛 wifi 摩托車可以寄信提早申請別當天", "submitted": "2026-08-20"}, {"school": "中山後醫", "grade": "學士後醫學系 三年級", "name": "許育賓", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 3, "SOAP格式書寫病歷": 3, "病人辨識與通報原則": 3, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 3, "教育輔導組協助管道": 3, "整體已準備好開始實習": 3}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 3, "teach": 3}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 4, "teach": 4}, "針扎預防": {"content": 4, "teach": 4}, "品質安全與公平照護": {"content": 3, "teach": 3}}, "overall": {"整體課程內容與安排": 4, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 4}, "open1": "成為讓人安心的醫師 這堂課加深了我對「醫病也醫人」的概念", "open2": "病歷書寫的部分，由於我們都還沒有正式接觸過病人，所以在講這個部分的時候很沒畫面", "open3": "讚", "submitted": "2026-08-20"}, {"school": "高醫", "grade": "醫學系 六年級", "name": "陳柔均", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 4, "對開始實習更有準備": 5}, "open1": "實習醫學生相關資訊系統介紹 我一直對不同醫院的系統操作感到困難，有一堂課專門講解如何使用真的很貼心，另外也有介紹一些用AI減低臨床工作量、耗費時數", "open2": "目前沒有想法，謝謝。", "open3": "整體而言時間安排、場地、行政服務都還算順暢，謝謝。", "submitted": "2026-08-20"}, {"school": "中山後醫", "grade": "學士後醫學系 三年級", "name": "王明敬", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 4, "teach": 5}, "環境介紹/手機配發": {"content": 4, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 4, "teach": 4}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 4, "課程時間長度與節奏安排": 3, "場地與設備": 4, "行政服務與聯繫": 4, "對開始實習更有準備": 4}, "open1": "A+醫師 有效率協助醫師在第一時間處理繁雜病歷處理", "open2": "建議未來已有影片課程 可先提供給實習生線上上課", "open3": "無", "submitted": "2026-08-20"}, {"school": "高醫", "grade": "學士後醫學系 四年級", "name": "林家揚", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "生活型態醫學 提醒照顧自己的健康", "open2": "病歷系統使用", "open3": "無", "submitted": "2026-08-20"}, {"school": "高醫", "grade": "醫學系 六年級", "name": "王思怡", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "環境介紹；更了解環境、相關設備與注意事項", "open2": "無", "open3": "無", "submitted": "2026-08-20"}]}, "115-09": {"label": "115年9月21日", "location": "教學大樓 B1 教-2 會議室", "records": [{"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "阮鈺麟", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 3, "teach": 3}, "環境介紹/手機配發": {"content": 2, "teach": 3}, "病歷寫作": {"content": 3, "teach": 3}, "生活型態醫學": {"content": 4, "teach": 5}, "資訊系統介紹": {"content": 3, "teach": 3}, "教育輔導組簡介": {"content": 3, "teach": 3}, "針扎預防": {"content": 3, "teach": 3}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 3, "場地與設備": 2, "行政服務與聯繫": 3, "對開始實習更有準備": 5}, "open1": "無", "open2": "無", "open3": "場地投影機不清楚 後排看不清楚內容", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "許崇義", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 4, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 4, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 4, "場地與設備": 4, "行政服務與聯繫": 4, "對開始實習更有準備": 4}, "open1": "針扎那堂 講師很會講", "open2": "奇美醫院附近美食", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "黃鼎元", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "C", "correct": false}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "C", "correct": false}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 7, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "針紮流程 協助我更了解", "open2": "冷氣強度", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "陳亮丞", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "實習醫學生相關資訊系統介紹（含 A+醫師、ChatGPT）", "open2": "無", "open3": "很棒", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "陳彥博", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 5, "教育輔導組協助管道": 5, "整體已準備好開始實習": 5}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "無", "open2": "無", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "賴承昊", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "病歷課/實用", "open2": "無", "open3": "讚", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "林酩原", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 4, "teach": 4}, "環境介紹/手機配發": {"content": 4, "teach": 4}, "病歷寫作": {"content": 4, "teach": 4}, "生活型態醫學": {"content": 4, "teach": 4}, "資訊系統介紹": {"content": 4, "teach": 4}, "教育輔導組簡介": {"content": 4, "teach": 3}, "針扎預防": {"content": 4, "teach": 4}, "品質安全與公平照護": {"content": 4, "teach": 4}}, "overall": {"整體課程內容與安排": 4, "課程時間長度與節奏安排": 4, "場地與設備": 3, "行政服務與聯繫": 4, "對開始實習更有準備": 4}, "open1": "針扎", "open2": "無", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "洪采邑", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 5, "SOAP格式書寫病歷": 5, "病人辨識與通報原則": 5, "生活型態醫學核心概念": 5, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": null, "teach": null}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "系統的操作，系統是醫院轉換最需要熟悉的部分", "open2": "無", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "謝子琳", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "B", "correct": true}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 9, "total": 9, "confidence": {"針扎處置與通報流程": 3, "SOAP格式書寫病歷": 3, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 2, "教育輔導組協助管道": 3, "整體已準備好開始實習": 3}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 4, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 4}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "無", "open2": "無", "open3": "無", "submitted": "2026-09-21"}, {"school": "中山醫學大學", "grade": "醫學系 六年級", "name": "陳嘉婕", "answers": [{"label": "病歷寫作(SOAP-O)", "ans": "B", "correct": true}, {"label": "病歷錯字更正", "ans": "B", "correct": true}, {"label": "生活型態醫學核心支柱", "ans": "D", "correct": true}, {"label": "針扎處置", "ans": "C", "correct": true}, {"label": "針扎預防", "ans": "D", "correct": false}, {"label": "病人辨識", "ans": "B", "correct": true}, {"label": "病人安全文化", "ans": "B", "correct": true}, {"label": "公平照護", "ans": "B", "correct": true}, {"label": "資訊系統/AI", "ans": "B", "correct": true}], "score": 8, "total": 9, "confidence": {"針扎處置與通報流程": 4, "SOAP格式書寫病歷": 4, "病人辨識與通報原則": 4, "生活型態醫學核心概念": 4, "院內資訊系統使用(A+醫師)": 4, "教育輔導組協助管道": 4, "整體已準備好開始實習": 4}, "courses": {"行政報到流程": {"content": 5, "teach": 5}, "環境介紹/手機配發": {"content": 5, "teach": 5}, "病歷寫作": {"content": 5, "teach": 5}, "生活型態醫學": {"content": 5, "teach": 5}, "資訊系統介紹": {"content": 5, "teach": 5}, "教育輔導組簡介": {"content": 5, "teach": 5}, "針扎預防": {"content": 5, "teach": 5}, "品質安全與公平照護": {"content": 5, "teach": 5}}, "overall": {"整體課程內容與安排": 5, "課程時間長度與節奏安排": 5, "場地與設備": 5, "行政服務與聯繫": 5, "對開始實習更有準備": 5}, "open1": "都很棒", "open2": "無", "open3": "無", "submitted": "2026-09-21"}]}}
+
+</script>
 <script>
-const attendees = [
-  ["楊文海","高雄醫學大學","9/9"],
-  ["蘇定緯","陽明交通大學","9/9"],
-  ["林於憫","中山大學後醫系","9/9"],
-  ["黃敬原","陽明交通大學","9/9"],
-  ["林芝璇","高雄醫學大學","9/9"],
-  ["楊聖永","中山大學後醫系","9/9"],
-  ["林瑞慈","中山大學後醫系","9/9"],
-];
+const PERIODS = JSON.parse(document.getElementById('period-data').textContent);
+const PERIOD_KEYS = Object.keys(PERIODS).sort();
 
-const kQuestions = [
-  ["Q1","病歷 SOAP 格式中「O」代表客觀資料",100],
-  ["Q2","病歷錯字更正的正確做法",100],
-  ["Q3","生活型態醫學核心支柱辨識",100],
-  ["Q4","針扎（銳器傷）後的處置",100],
-  ["Q5","病房預防針扎事件做法",100],
-  ["Q6","給藥前病人身分辨識",100],
-  ["Q7","病人安全文化精神",100],
-  ["Q8","公平醫療照護原則",100],
-  ["Q9","AI 工具與院內系統使用規範",100],
-];
+const REGISTERED = { '115-07': 14 }; // known registered headcount for July; others unknown
 
-const confidence = [
-  ["針扎處置與通報流程",4.29,true],
-  ["SOAP 格式書寫病歷",4.86,false],
-  ["病人辨識與通報原則",4.57,false],
-  ["生活型態醫學核心概念",4.71,false],
-  ["院內資訊系統使用（A+醫師）",4.43,false],
-  ["教育輔導組協助管道",4.43,false],
-  ["整體已準備好開始實習",4.43,false],
-];
+let currentKey = PERIOD_KEYS[PERIOD_KEYS.length - 1];
+let compareMode = false;
 
-const courses = [
-  ["行政報到流程","人力資源部／安全衛生室／總務室",5.00,4.71],
-  ["環境介紹／院內手機配發","教學部",5.00,4.71],
-  ["病歷寫作","腎臟科 江銘彥 醫師",4.57,4.71],
-  ["生活型態醫學","家庭醫學部 葉亭妤 醫師",4.86,5.00],
-  ["實習醫學生資訊系統介紹（A+醫師、ChatGPT）","一般內科 黃琪雅 醫師",5.00,5.00],
-  ["教育輔導組功能簡介","一般內科 黃琪雅 醫師",4.86,5.00],
-  ["病房工作中如何預防針扎事件","ER 吳貞鋆 高階護理師",5.00,5.00],
-  ["成為讓人安心的醫師：品質、安全與公平照護","品質管理部 杜漢祥 部長",4.86,5.00],
-];
+function avg(arr) {
+  const vals = arr.filter(v => v !== null && v !== undefined);
+  if (!vals.length) return null;
+  return vals.reduce((a, b) => a + b, 0) / vals.length;
+}
 
-const overall = [
-  ["整體課程內容與安排",4.86,false],
-  ["課程時間長度與節奏安排",4.86,false],
-  ["場地與設備（會議室、視聽設備）",4.29,true],
-  ["行政服務與聯繫",4.86,false],
-  ["這次職前訓練讓我對開始實習更有準備",4.86,false],
-];
-
-const quotes = [
-  ["楊文海","針扎課程，因為臨床上很有可能遇到"],
-  ["蘇定緯","生活型態醫學，能讓自己對於病人以及自身生活型態作評估，並調整更加良好的生活型態"],
-  ["林於憫","A+ 系統介紹教學"],
-  ["黃敬原","黃琪雅醫師的課，了解到 AI 整合資訊與幫助我們學習的潛力，感覺很實用"],
-  ["林芝璇","資訊系統介紹，對實際進入臨床環境基礎操作更熟悉"],
-  ["楊聖永","杜漢祥部長的交班練習。因為實際演練過一遍比較知道如何快速掌握一個病人的狀況，也比較清楚臨床上的工作溝通方式"],
-  ["林瑞慈","成為讓人安心的醫師（品質、安全與公平照護）。老師的提問讓學生可以思考，以及實際體驗未來遇到問題時如何應對"],
-];
-
-const suggestions = [
-  ["楊文海","一整天的課程實在太累，建議可以用線上課程讓學員到院前就可以觀看；設備有時候會出問題，建議定期更新"],
-  ["蘇定緯","一整天的課程可能會稍微有些累，或許可以分兩天進行"],
-  ["其餘 5 位","無特別建議／無，非常滿意"],
-];
-
-const actions = [
-  ["場地與設備","定期檢查、維護會議室視聽（麥克風／投影）設備，訓練前進行測試","高","high"],
-  ["課程節奏","評估將全日課程調整為分兩天進行，或將部分課程（如針扎課程）改為院前線上預習教材","高","high"],
-  ["針扎處置信心強化","增加針扎處置與通報流程之實作演練或情境模擬，提升學員臨床把握度","中","mid"],
-  ["病歷寫作課程內容","檢視病歷寫作課程之案例與練習內容，強化與臨床實務之連結","中","mid"],
-  ["問卷回收機制","本次僅回收 7／14 份問卷（50%），建議設計現場當場填答完成之流程，避免重複送出與缺漏","中","mid"],
-];
-
-// ---------- render ----------
-document.getElementById('attendee-body').innerHTML = attendees.map(a =>
-  `<tr><td>${a[0]}</td><td>${a[1]}</td><td><span class="badge">${a[2]}</span></td></tr>`
-).join('');
-
-document.getElementById('k-grid').innerHTML = kQuestions.map((q,i) => `
-  <div class="k-card">
-    <div class="qnum">${q[0]}</div>
-    <div class="qtitle">${q[1]}</div>
-    <div class="qrate"><span style="font-size:12px;color:var(--muted)">答對率</span><span class="pct">${q[2]}%</span></div>
-    <div class="bar-track"><div class="bar-fill" data-w="${q[2]}" style="transition-delay:${i*40}ms"></div></div>
-  </div>
-`).join('');
-
-document.getElementById('confidence-list').innerHTML = confidence.map((c,i) => `
-  <div class="barrow">
-    <div class="rowlabel">${c[0]}${c[2] ? '<span class="flag">相對偏低</span>' : ''}</div>
-    <div class="track"><div class="fill ${c[2]?'low':''}" data-w="${c[1]/5*100}" style="transition-delay:${i*60}ms"></div></div>
-    <div class="score">${c[1].toFixed(2)}</div>
-  </div>
-`).join('');
-
-document.getElementById('course-list').innerHTML = courses.map((c,i) => `
-  <div class="course-card">
-    <div class="top">
-      <div><div class="cname">${c[0]}</div><div class="cwho">${c[1]}</div></div>
-    </div>
-    <div class="dualbars">
-      <div class="dualbar-row">
-        <div class="dlabel">內容</div>
-        <div class="track"><div class="fill content" data-w="${c[2]/5*100}" style="transition-delay:${i*50}ms"></div></div>
-        <div class="dscore">${c[2].toFixed(2)}</div>
-      </div>
-      <div class="dualbar-row">
-        <div class="dlabel">講師</div>
-        <div class="track"><div class="fill instructor" data-w="${c[3]/5*100}" style="transition-delay:${i*50+30}ms"></div></div>
-        <div class="dscore">${c[3].toFixed(2)}</div>
-      </div>
-    </div>
-  </div>
-`).join('');
-
-document.getElementById('overall-list').innerHTML = overall.map((o,i) => `
-  <div class="barrow">
-    <div class="rowlabel">${o[0]}${o[2] ? '<span class="flag">最低分</span>' : ''}</div>
-    <div class="track"><div class="fill ${o[2]?'low':''}" data-w="${o[1]/5*100}" style="transition-delay:${i*60}ms"></div></div>
-    <div class="score">${o[1].toFixed(2)}</div>
-  </div>
-`).join('');
-
-document.getElementById('quote-grid').innerHTML = quotes.map(q => `
-  <div class="quote-card">
-    <div class="mark">"</div>
-    <p>${q[1]}</p>
-    <div class="who">— ${q[0]}</div>
-  </div>
-`).join('');
-
-document.getElementById('suggest-list').innerHTML = suggestions.map(s => `
-  <div class="suggest-item">
-    <span class="tag">${s[0]}</span>
-    <span>${s[1]}</span>
-  </div>
-`).join('');
-
-document.getElementById('action-list').innerHTML = actions.map((a,i) => `
-  <div class="action-card">
-    <div class="idx">${i+1}</div>
-    <div class="body"><b>${a[0]}</b><p>${a[1]}</p></div>
-    <div class="prio ${a[3]}">優先順序：${a[2]}</div>
-  </div>
-`).join('');
-
-// ---------- reveal on scroll ----------
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      // trigger bar fills within this element
-      e.target.querySelectorAll('[data-w]').forEach(el => {
-        el.style.width = el.getAttribute('data-w') + '%';
-      });
-      io.unobserve(e.target);
-    }
+function aggregate(period) {
+  const recs = period.records;
+  const n = recs.length;
+  const qLabels = recs[0].answers.map(a => a.label);
+  const qStats = qLabels.map((label, i) => {
+    const correctCount = recs.filter(r => r.answers[i].correct).length;
+    const wrongAnswers = recs.filter(r => !r.answers[i].correct).map(r => `${r.name}(${r.answers[i].ans})`);
+    return { label, correctCount, n, pct: Math.round(correctCount / n * 1000) / 10, wrongAnswers };
   });
-}, {threshold:0.12});
-revealEls.forEach(el => io.observe(el));
+  const avgScore = avg(recs.map(r => r.score));
 
-// fallback: also observe bar tracks inside non-reveal (k-grid already covered via parent .reveal)
+  const cLabels = Object.keys(recs[0].confidence);
+  const cStats = cLabels.map(label => ({ label, avg: avg(recs.map(r => r.confidence[label])) }));
+
+  const sLabels = Object.keys(recs[0].courses);
+  const sStats = sLabels.map(label => ({
+    label,
+    content: avg(recs.map(r => r.courses[label].content)),
+    teach: avg(recs.map(r => r.courses[label].teach)),
+  }));
+
+  const oLabels = Object.keys(recs[0].overall);
+  const oStats = oLabels.map(label => ({ label, avg: avg(recs.map(r => r.overall[label])) }));
+
+  const overallConfidenceAvg = avg(cStats.map(c => c.avg));
+  const overallCourseAvg = avg(sStats.flatMap(s => [s.content, s.teach]));
+  const overallEvalAvg = avg(oStats.map(o => o.avg));
+
+  return { n, qStats, avgScore, cStats, sStats, oStats, overallConfidenceAvg, overallCourseAvg, overallEvalAvg };
+}
+
+const COURSE_WHO = {
+  '行政報到流程': '人力資源部／安全衛生室／總務室',
+  '環境介紹/手機配發': '教學部',
+  '病歷寫作': '腎臟科 江銘彥 醫師',
+  '生活型態醫學': '家庭醫學部 葉亭妤 醫師',
+  '資訊系統介紹': '一般內科 黃琪雅 醫師',
+  '教育輔導組簡介': '一般內科 黃琪雅 醫師',
+  '針扎預防': 'ER 吳貞鋆 高階護理師',
+  '品質安全與公平照護': '品質管理部 杜漢祥 部長',
+};
+
+function fmt(v, d = 2) { return v === null || v === undefined ? '—' : v.toFixed(d); }
+
+function renderPeriodTabs() {
+  const wrap = document.getElementById('period-tabs');
+  wrap.innerHTML = PERIOD_KEYS.map(k => {
+    const label = PERIODS[k].label;
+    return `<button class="period-tab" data-key="${k}">${k}<br><span style="font-size:10px;opacity:.8">${label}</span></button>`;
+  }).join('') + `<button class="period-tab compare" data-key="__compare__">📊 跨梯次比較</button>`;
+
+  wrap.querySelectorAll('.period-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-key');
+      if (key === '__compare__') {
+        compareMode = true;
+      } else {
+        compareMode = false;
+        currentKey = key;
+      }
+      render();
+    });
+  });
+}
+
+function renderPeriod(key) {
+  const period = PERIODS[key];
+  const agg = aggregate(period);
+  const n = agg.n;
+  const registered = REGISTERED[key];
+
+  document.getElementById('hero-title').innerHTML = `${period.label}<br>UGY 職前訓練課後問卷分析`;
+  document.getElementById('hero-sub').textContent =
+    `地點：${period.location}${registered ? `・登記參訓 ${registered} 人` : ''}。以下依實際回收問卷（n = ${n}）整理知識測驗、信心自評、課程滿意度與開放意見。`;
+
+  // vitals
+  const responseRateHtml = registered
+    ? `<div class="vital-card"><div class="num">${n}<small>／${registered}</small></div><div class="label">問卷回收（人）</div></div>`
+    : `<div class="vital-card"><div class="num">${n}</div><div class="label">回覆人數</div></div>`;
+  document.getElementById('vitals').innerHTML = `
+    ${responseRateHtml}
+    <div class="vital-card"><div class="num">${(agg.avgScore/9*100).toFixed(0)}<small>%</small></div><div class="label">知識測驗平均答對率</div></div>
+    <div class="vital-card"><div class="num">${fmt(agg.overallCourseAvg,1)}<small>／5</small></div><div class="label">課程滿意度平均</div></div>
+  `;
+
+  // attendees
+  document.getElementById('attendee-intro').textContent = `${n} 位受訪學員知識測驗平均得分 ${fmt(agg.avgScore,2)}／9。以下為個別成績。`;
+  document.getElementById('attendee-body').innerHTML = period.records.map(r => {
+    const ok = r.score === r.total;
+    return `<tr><td>${r.name}</td><td>${r.school}／${r.grade}</td><td><span class="badge ${ok?'':'warn'}">${r.score}/${r.total}</span></td></tr>`;
+  }).join('');
+
+  // knowledge
+  document.getElementById('k-grid').innerHTML = agg.qStats.map((q, i) => `
+    <div class="k-card ${q.pct < 100 ? 'flagged' : ''}">
+      <div class="qnum">Q${i+1}</div>
+      <div class="qtitle">${q.label}</div>
+      <div class="qrate"><span style="font-size:11.5px;color:var(--muted)">答對率</span><span class="pct">${q.pct}%</span></div>
+      <div class="bar-track"><div class="bar-fill" data-w="${q.pct}" style="transition-delay:${i*40}ms"></div></div>
+      ${q.pct < 100 ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;">錯誤：${q.wrongAnswers.join('、')}</div>` : ''}
+    </div>
+  `).join('');
+
+  // confidence
+  const minC = Math.min(...agg.cStats.map(c => c.avg));
+  document.getElementById('confidence-list').innerHTML = agg.cStats.map((c, i) => `
+    <div class="barrow">
+      <div class="rowlabel">${c.label}${c.avg === minC ? '<span class="flag">相對偏低</span>' : ''}</div>
+      <div class="track"><div class="fill ${c.avg===minC?'low':''}" data-w="${c.avg/5*100}" style="transition-delay:${i*50}ms"></div></div>
+      <div class="score">${fmt(c.avg)}</div>
+    </div>
+  `).join('');
+
+  // courses
+  document.getElementById('course-list').innerHTML = agg.sStats.map((s, i) => `
+    <div class="course-card">
+      <div class="cname">${s.label}</div>
+      <div class="cwho">${COURSE_WHO[s.label] || ''}</div>
+      <div class="dualbars">
+        <div class="dualbar-row"><div class="dlabel">內容</div><div class="track"><div class="fill content" data-w="${(s.content||0)/5*100}" style="transition-delay:${i*40}ms"></div></div><div class="dscore">${fmt(s.content)}</div></div>
+        <div class="dualbar-row"><div class="dlabel">講師</div><div class="track"><div class="fill teach" data-w="${(s.teach||0)/5*100}" style="transition-delay:${i*40+25}ms"></div></div><div class="dscore">${fmt(s.teach)}</div></div>
+      </div>
+    </div>
+  `).join('');
+
+  // overall
+  const minO = Math.min(...agg.oStats.map(o => o.avg));
+  document.getElementById('overall-intro').textContent = `本梯次 ${agg.oStats.length} 項整體評價平均為 ${fmt(agg.overallEvalAvg,2)} 分。`;
+  document.getElementById('overall-list').innerHTML = agg.oStats.map((o, i) => `
+    <div class="barrow">
+      <div class="rowlabel">${o.label}${o.avg === minO && o.avg < 4.5 ? '<span class="flag">最低分</span>' : ''}</div>
+      <div class="track"><div class="fill ${o.avg===minO && o.avg<4.5 ?'low':''}" data-w="${o.avg/5*100}" style="transition-delay:${i*50}ms"></div></div>
+      <div class="score">${fmt(o.avg)}</div>
+    </div>
+  `).join('');
+  const lowestOverall = agg.oStats.find(o => o.avg === minO);
+  const calloutEl = document.getElementById('overall-callout');
+  if (lowestOverall && lowestOverall.avg < 4.5) {
+    calloutEl.innerHTML = `<div class="callout"><div class="icon">!</div><div class="txt"><b>${lowestOverall.label}</b>為本梯次整體評價中平均分最低的項目（${fmt(lowestOverall.avg)}），建議對照開放意見進一步確認原因並列入改善追蹤。</div></div>`;
+  } else {
+    calloutEl.innerHTML = `<div class="callout ok"><div class="icon">✓</div><div class="txt">本梯次所有整體評價項目均達 <b>${fmt(minO)}</b> 分以上，無明顯偏低項目。</div></div>`;
+  }
+
+  // quotes
+  document.getElementById('quote-grid').innerHTML = period.records.filter(r => r.open1 && r.open1 !== '無').map(r => `
+    <div class="quote-card"><div class="mark">"</div><p>${r.open1}</p><div class="who">— ${r.name}</div></div>
+  `).join('');
+
+  // suggestions (open2 + open3, excluding "無"/empty)
+  const isEmpty = t => !t || ['無','無。','無，非常滿意','讚','讚。','無特別建議','目前沒有想法，謝謝。'].includes(t.trim());
+  const suggestions = [];
+  period.records.forEach(r => {
+    if (!isEmpty(r.open2)) suggestions.push([r.name, r.open2]);
+    if (!isEmpty(r.open3)) suggestions.push([r.name, r.open3]);
+  });
+  const noSuggestCount = n - new Set(suggestions.map(s => s[0])).size;
+  document.getElementById('suggest-list').innerHTML =
+    suggestions.map(s => `<div class="suggest-item"><span class="tag">${s[0]}</span><span>${s[1]}</span></div>`).join('') +
+    (noSuggestCount > 0 ? `<div class="suggest-item"><span class="tag">其餘 ${noSuggestCount} 位</span><span>無特別建議／非常滿意</span></div>` : '');
+
+  // action items (rule-based on lowest metrics)
+  const actions = [];
+  if (lowestOverall && lowestOverall.avg < 4.5) {
+    actions.push([lowestOverall.label, `此項本梯次平均分（${fmt(lowestOverall.avg)}）低於其他整體評價項目，建議對照學員開放意見具體排查原因並優先處理。`, '高', 'high']);
+  }
+  const minCStat = agg.cStats.find(c => c.avg === minC);
+  if (minCStat && minCStat.avg < 4.5) {
+    actions.push([`${minCStat.label}（信心強化）`, `學員信心自評平均為 ${fmt(minCStat.avg)}，建議增加對應的實作演練或情境模擬機會。`, '中', 'mid']);
+  }
+  const lowCourse = agg.sStats.slice().sort((a,b) => (a.content||5)-(b.content||5))[0];
+  if (lowCourse && lowCourse.content !== null && lowCourse.content < 4.7) {
+    actions.push([`${lowCourse.label}（課程內容）`, `內容實用性評分（${fmt(lowCourse.content)}）相對其他課程可再優化，建議檢視教材與案例設計。`, '中', 'mid']);
+  }
+  if (registered && n < registered) {
+    actions.push(['問卷回收機制', `本梯次僅回收 ${n}／${registered} 份問卷，建議設計現場當場填答完成之流程，避免缺漏。`, '中', 'mid']);
+  }
+  if (!actions.length) {
+    actions.push(['持續維持現有品質', '本梯次各項指標表現均良好，建議持續維持現有課程設計與場地安排標準。', '低', 'mid']);
+  }
+  document.getElementById('action-list').innerHTML = actions.map((a, i) => `
+    <div class="action-card"><div class="idx">${i+1}</div><div class="body"><b>${a[0]}</b><p>${a[1]}</p></div><div class="prio ${a[3]}">優先順序：${a[2]}</div></div>
+  `).join('');
+}
+
+function cmpBars(containerId, items, max, fmtFn) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(it => `
+    <div class="cmp-row">
+      <div class="plabel">${it.key}</div>
+      <div class="track"><div class="fill" data-w="${it.val===null?0:(it.val/max*100)}"></div></div>
+      <div class="val">${it.val===null?'—':fmtFn(it.val)}</div>
+    </div>
+  `).join('');
+}
+
+function renderCompare() {
+  const aggs = PERIOD_KEYS.map(k => ({ key: k, agg: aggregate(PERIODS[k]) }));
+  cmpBars('cmp-n', aggs.map(a => ({ key: a.key, val: a.agg.n })), Math.max(...aggs.map(a=>a.agg.n)) || 1, v => `${v} 人`);
+  cmpBars('cmp-knowledge', aggs.map(a => ({ key: a.key, val: a.agg.avgScore })), 9, v => v.toFixed(2));
+  cmpBars('cmp-confidence', aggs.map(a => ({ key: a.key, val: a.agg.overallConfidenceAvg })), 5, v => v.toFixed(2));
+  cmpBars('cmp-course', aggs.map(a => ({ key: a.key, val: a.agg.overallCourseAvg })), 5, v => v.toFixed(2));
+  cmpBars('cmp-overall', aggs.map(a => ({ key: a.key, val: a.agg.overallEvalAvg })), 5, v => v.toFixed(2));
+}
+
+function triggerBars(root) {
+  root.querySelectorAll('[data-w]').forEach(el => { el.style.width = el.getAttribute('data-w') + '%'; });
+}
+
+function render() {
+  document.querySelectorAll('.period-tab').forEach(btn => {
+    const key = btn.getAttribute('data-key');
+    btn.classList.toggle('active', compareMode ? key === '__compare__' : key === currentKey);
+  });
+
+  if (compareMode) {
+    document.getElementById('period-view').style.display = 'none';
+    document.getElementById('compare-view').style.display = 'block';
+    renderCompare();
+    setTimeout(() => triggerBars(document.getElementById('compare-view')), 50);
+  } else {
+    document.getElementById('compare-view').style.display = 'none';
+    document.getElementById('period-view').style.display = 'block';
+    renderPeriod(currentKey);
+    setTimeout(() => triggerBars(document.getElementById('period-view')), 50);
+  }
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  setupReveal();
+}
+
+function setupReveal() {
+  const revealEls = document.querySelectorAll('.reveal');
+  if (typeof IntersectionObserver === 'undefined') {
+    revealEls.forEach(el => { el.classList.add('in'); triggerBars(el); });
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        triggerBars(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => { el.classList.remove('in'); io.observe(el); });
+}
+
+renderPeriodTabs();
+render();
+
 </script>
 </body>
 </html>
